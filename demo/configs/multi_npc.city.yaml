@@ -1,0 +1,65 @@
+simulator:
+  physics_dt: 1/240
+  rendering_dt: 1/240
+
+tasks:
+- type: "SingleInferenceTask"
+  name: "multi_npc_city"
+  scene_asset_path: "GRUtopia/assets/scenes/demo_city/demo_city.usd"
+  scene_scale: [0.01, 0.01, 0.01]
+  env_num: 1
+  offset_size: 1.0
+  robots:
+  - name: h1  # Player-controlled humanoid
+    prim_path: "/World/h1"
+    type: "HumanoidRobot"
+    position: [0.0, 0.0, 1.05]
+    scale: [1, 1, 1]
+    controller_params:
+    - name: "move_by_speed"
+    - name: "move_to_point"
+    - name: "move_along_path"
+    - name: "rotate"
+    - name: "move_with_keyboard"
+    - name: "web_chat"
+    sensor_params:
+    - name: "camera"
+      enable: true
+  - name: robot1  # First NPC robot
+    prim_path: "/World/robot1"
+    type: "HumanoidRobot"
+    position: [3.0, 0.0, 1.05]
+    scale: [1, 1, 1]
+    controller_params:
+    - name: "move_by_speed"
+    - name: "move_to_point"
+    - name: "move_along_path"
+    - name: "rotate"
+    - name: "web_chat"
+    sensor_params:
+    - name: "camera"
+      enable: true
+  - name: robot2  # Second NPC robot
+    prim_path: "/World/robot2"
+    type: "HumanoidRobot"
+    position: [-3.0, -3.0, 1.05]
+    scale: [1, 1, 1]
+    controller_params:
+    - name: "move_by_speed"
+    - name: "move_to_point"
+    - name: "move_along_path"
+    - name: "rotate"
+    - name: "web_chat"
+    sensor_params:
+    - name: "camera"
+      enable: true
+
+npc:  # NPC configuration
+- name: "npc-1"
+  model_name: gpt-4o
+  openai_api_key: ${OPENAI_API_KEY}
+  scene_data_path: "GRUtopia/assets/scenes/demo_city/object_dict_with_caption.json"
+- name: "npc-2"
+  model_name: gpt-4o
+  openai_api_key: ${OPENAI_API_KEY}
+  scene_data_path: "GRUtopia/assets/scenes/demo_city/object_dict_with_caption.json"

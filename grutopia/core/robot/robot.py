@@ -121,25 +121,27 @@ class BaseRobot:
 
 
 def create_robots(config: TaskUserConfig, robot_models: RobotModels, scene: Scene) -> Dict[str, BaseRobot]:
-    """Create robot instances in config."""
+    """Create robot instances in config.
+    Args:
+        config (TaskUserConfig): user config.
+        robot_models (RobotModels): robot models.
+        scene (Scene): isaac scene.
+
+    Returns:
+        Dict[str, BaseRobot]: robot instances dictionary.
+    """
     robot_map = {}
-    available_models = robot_models.robots  # Store the models list first
-    
     for robot in config.robots:
         if robot.type not in BaseRobot.robots:
             raise KeyError(f'unknown robot type "{robot.type}"')
         robot_cls = BaseRobot.robots[robot.type]
-        
-        # Find matching robot model
+        robot_models = robot_models.robots
         r_model = None
-        for model in available_models:
+        for model in robot_models:
             if model.type == robot.type:
                 r_model = model
-                break
-                
         if r_model is None:
             raise KeyError(f'robot model of "{robot.type}" is not found')
-            
         robot_ins = robot_cls(robot, r_model, scene)
         robot_map[robot.name] = robot_ins
         robot_ins.set_up_to_scene(scene)
