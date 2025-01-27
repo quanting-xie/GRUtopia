@@ -26,16 +26,11 @@ if is_in_container():
     webrtc = True
 
 # Initialize Isaac Sim first
-from grutopia.core.env import BaseEnv  # This initializes Isaac Sim
-import yaml
-from grutopia.core.robot.robot_model import RobotModels  # Import after Isaac Sim initialization
+from omni.isaac.kit import SimulationApp
+simulation_app = SimulationApp({'headless': headless, 'anti_aliasing': 0})
 
-# Load robot models
-robot_models_path = os.path.join(
-    os.path.dirname(__file__), '../grutopia_extension/robots/robot_models.yaml')
-with open(robot_models_path, 'r') as f:
-    models = yaml.load(f.read(), Loader=yaml.FullLoader)
-    robot_models = RobotModels(**models)
+# Now we can safely import other omni-related modules
+from grutopia.core.env import BaseEnv
 
 # Create environment
 env = BaseEnv(sim_config, headless=headless, webrtc=webrtc)
