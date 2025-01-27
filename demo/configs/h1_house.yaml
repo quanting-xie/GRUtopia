@@ -10,10 +10,23 @@ tasks:
   env_num: 1
   offset_size: 1.0
   
-  objects:
-  - name: "cctv_1"
+  robots:
+  - name: "h1"
+    prim_path: "/World/h1"
+    type: "HumanoidRobot"
+    position: [5.58, -0.77, 1.05]
+    scale: [1, 1, 1]
+    controller_params:
+    - name: "move_with_keyboard"
+    sensor_params:
+    - name: "camera"
+      enable: true
+    - name: "tp_camera"
+      enable: true
+
+  - name: "cctv_1"  # First CCTV as a robot
     prim_path: "/World/cctv_1"
-    type: "DynamicCube"
+    type: "CCTVCamera"
     position: [4.0, -1.0, 2.5]
     scale: [0.1, 0.1, 0.1]
     color: [0.2, 0.2, 0.2]
@@ -21,12 +34,10 @@ tasks:
     - name: "camera"
       enable: true
       size: [640, 480]
-      prim_path: "camera"
-      viewport_visible: true
-  
-  - name: "cctv_2"
+
+  - name: "cctv_2"  # Second CCTV as a robot
     prim_path: "/World/cctv_2"
-    type: "DynamicCube"
+    type: "CCTVCamera"
     position: [7.0, 1.0, 2.5]
     scale: [0.1, 0.1, 0.1]
     color: [0.2, 0.2, 0.2]
@@ -34,25 +45,3 @@ tasks:
     - name: "camera"
       enable: true
       size: [640, 480]
-      prim_path: "camera"
-      viewport_visible: true
-
-  robots:
-  - name: h1
-    prim_path: "/World/h1"
-    type: "HumanoidRobot"
-    position: [5.58, -0.77, 1.05]
-    scale: [1, 1, 1]
-    controller_params:
-    - name: "move_by_speed"
-    - name: "joint_controller"
-    - name: "move_to_point"
-    - name: "move_along_path"
-    - name: "rotate"
-    - name: "move_with_keyboard"
-    - name: "web_chat"
-    sensor_params:
-    - name: "camera"
-      enable: true
-    - name: "tp_camera"
-      enable: true

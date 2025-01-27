@@ -1,5 +1,14 @@
 # Developer only. User read-only.
 robots:
+# Custom CCTV camera
+- type: "CCTVCamera"
+  sensors:
+  - name: "camera"
+    type: "Camera"
+    prim_path: "camera"
+
+
+# Default Humanoid Robot
 - type: "HumanoidRobot"
   usd_path: "GRUtopia/assets/robots/h1/h1.usd"
   gains: [0.0, 0.0]

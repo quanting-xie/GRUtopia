@@ -16,7 +16,6 @@ if is_in_container():
 env = BaseEnv(sim_config, headless=headless, webrtc=webrtc)
 
 task_name = env.config.tasks[0].name
-robot_name = env.config.tasks[0].robots[0].name
 
 # Get initial observation
 actions = {'h1': {'move_with_keyboard': []}}
@@ -46,7 +45,5 @@ while env.simulation_app.is_running():
                 print(f"Found {obj_name} in observations")
                 camera_data = obs[task_name][obj_name].get('camera', {})
                 print(f"{obj_name} camera data: {camera_data.keys() if camera_data else 'No camera data'}")
-            else:
-                print(f"{obj_name} not found in observations")
 
 env.simulation_app.close()
