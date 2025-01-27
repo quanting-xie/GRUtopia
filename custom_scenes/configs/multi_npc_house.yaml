@@ -2,16 +2,6 @@ simulator:
   physics_dt: 1/240
   rendering_dt: 1/240
 
-npc:
-- name: "npc-1"
-  model_name: gpt-4o
-  openai_api_key: ${OPENAI_API_KEY}
-  scene_data_path: "/isaac-sim/GRUtopia/assets/scenes/demo_house/object_dict_with_caption.json"
-- name: "npc-2"
-  model_name: gpt-4o
-  openai_api_key: ${OPENAI_API_KEY}
-  scene_data_path: "/isaac-sim/GRUtopia/assets/scenes/demo_house/object_dict_with_caption.json"
-
 tasks:
 - type: "SingleInferenceTask"
   name: "multi_npc_house"
@@ -53,3 +43,13 @@ tasks:
     sensor_params:
     - name: "camera"
       enable: true
+
+npc:
+- name: "npc-1"
+  model_name: gpt-4o
+  openai_api_key: ${OPENAI_API_KEY}
+  scene_data_path: "/isaac-sim/GRUtopia/assets/scenes/demo_house/object_dict_with_caption.json"
+- name: "npc-2"
+  model_name: gpt-4o
+  openai_api_key: ${OPENAI_API_KEY}
+  scene_data_path: "/isaac-sim/GRUtopia/assets/scenes/demo_house/object_dict_with_caption.json"
