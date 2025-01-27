@@ -41,7 +41,7 @@ while env.simulation_app.is_running():
         # Print all available observations
         print(f"Available observations: {obs[task_name].keys()}")
         
-        for obj_name in ['cctv_1', 'cctv_2']:
+        for obj_name in ['cctv_1_0', 'cctv_2_0']:
             if obj_name in obs[task_name]:
                 print(f"Found {obj_name} in observations")
                 camera_data = obs[task_name][obj_name].get('camera', {})
