@@ -58,8 +58,8 @@ npc:  # NPC configuration
 - name: "npc-1"
   model_name: gpt-4o
   openai_api_key: ${OPENAI_API_KEY}
-  scene_data_path: "GRUtopia/assets/scenes/demo_city/object_dict_with_caption.json"
+  # scene_data_path: "GRUtopia/assets/scenes/demo_city/object_dict_with_caption.json"
 - name: "npc-2"
   model_name: gpt-4o
   openai_api_key: ${OPENAI_API_KEY}
-  scene_data_path: "GRUtopia/assets/scenes/demo_city/object_dict_with_caption.json"
+  # scene_data_path: "GRUtopia/assets/scenes/demo_city/object_dict_with_caption.json"
