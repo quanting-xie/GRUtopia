@@ -25,6 +25,7 @@ tasks:
       prim_path: "camera"
       viewport_visible: true
       camera_type: "Perspective"
+      viewport_window: true
   
   - name: "cctv_2"
     prim_path: "/World/cctv_2"
@@ -39,6 +40,7 @@ tasks:
       prim_path: "camera"
       viewport_visible: true
       camera_type: "Perspective"
+      viewport_window: true
 
   # Original robot config remains the same
   robots:
