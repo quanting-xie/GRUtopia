@@ -6,16 +6,23 @@ npc:
 - name: "npc-1"
   model_name: gpt-4o
   openai_api_key: ${OPENAI_API_KEY}
-  scene_data_path: GRUtopia/assets/scenes/demo_house/object_dict_with_caption.json
+  scene_data_path: "/isaac-sim/GRUtopia/assets/scenes/demo_house/object_dict_with_caption.json"
 - name: "npc-2"
   model_name: gpt-4o
   openai_api_key: ${OPENAI_API_KEY}
-  scene_data_path: GRUtopia/assets/scenes/demo_house/object_dict_with_caption.json
+  scene_data_path: "/isaac-sim/GRUtopia/assets/scenes/demo_house/object_dict_with_caption.json"
+
+robots:
+  - type: "HumanoidRobot"
+    name: "h1"
+    prim_path: "/World/h1"
+    position: [5.58, -0.77, 1.05]
+    scale: [1, 1, 1]
 
 tasks:
 - type: "SingleInferenceTask"
   name: "multi_npc_house"
-  scene_asset_path: GRUtopia/assets/scenes/demo_house/demo_house.usd
+  scene_asset_path: "/isaac-sim/GRUtopia/assets/scenes/demo_house/demo_house.usd"
   scene_scale: [0.01, 0.01, 0.01]
   env_num: 1
   offset_size: 1.0
