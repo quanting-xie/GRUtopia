@@ -1,7 +1,7 @@
 from grutopia.core.config import SimulatorConfig
 from grutopia.core.env import BaseEnv
 from grutopia.core.util.container import is_in_container
-import numpy as np
+import omni.kit.viewport.utility as vp_utils
 
 file_path = './GRUtopia/demo/configs/h1_house.yaml'
 sim_config = SimulatorConfig(file_path)
@@ -14,6 +14,14 @@ if is_in_container():
     webrtc = True
 
 env = BaseEnv(sim_config, headless=headless, webrtc=webrtc)
+
+# Get the viewport interface
+viewport_interface = vp_utils.get_viewport_interface()
+
+# Register CCTV cameras with viewport
+for obj_name in ['cctv_1', 'cctv_2']:
+    camera_path = f"/World/{obj_name}/camera"
+    viewport_interface.add_viewport_camera(camera_path, obj_name)
 
 task_name = env.config.tasks[0].name
 robot_name = env.config.tasks[0].robots[0].name
