@@ -2,12 +2,10 @@ from grutopia.core.config import SimulatorConfig
 from grutopia.core.datahub.web_ui_api import clear as webui_clear
 from grutopia.core.env import BaseEnv
 from grutopia.core.util.container import is_in_container
-import numpy as np
-from omni.isaac.core.utils.rotations import euler_angles_to_quat, quat_to_euler_angles
 from grutopia.core.util import log
 
 # Load configuration
-file_path = './GRUtopia/custom_scenes/configs/multi_npc_city.yaml'
+file_path = './GRUtopia/demo/configs/multi_npc_city.yaml'
 sim_config = SimulatorConfig(file_path)
 
 # Set up environment
@@ -18,8 +16,12 @@ if is_in_container():
     headless = True
     webrtc = True
 
-# Create environment
+# Create environment (this initializes Isaac Sim)
 env = BaseEnv(sim_config, headless=headless, webrtc=webrtc)
+
+# Now we can safely import omni modules
+import numpy as np
+from omni.isaac.core.utils.rotations import euler_angles_to_quat, quat_to_euler_angles
 
 task_name = env.config.tasks[0].name
 
