@@ -3,6 +3,7 @@ from grutopia.core.config import SimulatorConfig
 from grutopia.core.datahub.web_ui_api import clear as webui_clear
 from grutopia.core.env import BaseEnv
 from grutopia.core.util.container import is_in_container
+from grutopia.core.robot.robot_models import RobotModels
 
 # Load configuration
 file_path = './GRUtopia/custom_scenes/configs/multi_npc_house.yaml'
@@ -26,7 +27,11 @@ if is_in_container():
     headless = True
     webrtc = True
 
-env = BaseEnv(sim_config, headless=headless, webrtc=webrtc)
+# Load robot models before creating environment
+robot_models = RobotModels()
+
+# Create environment with robot models
+env = BaseEnv(sim_config, headless=headless, webrtc=webrtc, robot_models=robot_models)
 
 task_name = env.config.tasks[0].name
 player_robot_name = 'h1'
