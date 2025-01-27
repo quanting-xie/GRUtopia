@@ -9,6 +9,34 @@ tasks:
   scene_scale: [0.01, 0.01, 0.01]
   env_num: 1
   offset_size: 1.0
+  
+  # Add CCTV objects
+  objects:
+  - name: "cctv_1"
+    prim_path: "/World/cctv_1"
+    type: "DynamicCube"  # Using a simple cube as camera housing
+    position: [4.0, -1.0, 2.5]
+    scale: [0.1, 0.1, 0.1]
+    color: [0.2, 0.2, 0.2]  # Dark gray color
+    sensor_params:
+    - name: "camera"
+      enable: true
+      size: [640, 480]
+      prim_path: "camera"  # This will be appended to the object's prim_path
+  
+  - name: "cctv_2"
+    prim_path: "/World/cctv_2"
+    type: "DynamicCube"
+    position: [7.0, 1.0, 2.5]
+    scale: [0.1, 0.1, 0.1]
+    color: [0.2, 0.2, 0.2]
+    sensor_params:
+    - name: "camera"
+      enable: true
+      size: [640, 480]
+      prim_path: "camera"
+
+  # Original robot config remains the same
   robots:
   - name: h1
     prim_path: "/World/h1"
@@ -25,6 +53,6 @@ tasks:
     - name: "web_chat"
     sensor_params:
     - name: "camera"
-      enable: false
+      enable: true
     - name: "tp_camera"
-      enable: false
+      enable: true

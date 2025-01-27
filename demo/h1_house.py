@@ -1,6 +1,7 @@
 from grutopia.core.config import SimulatorConfig
 from grutopia.core.env import BaseEnv
 from grutopia.core.util.container import is_in_container
+import numpy as np
 
 file_path = './GRUtopia/demo/configs/h1_house.yaml'
 sim_config = SimulatorConfig(file_path)
@@ -27,7 +28,18 @@ while env.simulation_app.is_running():
     env_actions.append(actions)
     obs = env.step(actions=env_actions)
 
+    # Access CCTV camera feeds every 100 steps
     if i % 100 == 0:
         print(i)
+        
+        # Get CCTV camera feeds
+        for obj_name in ['cctv_1', 'cctv_2']:
+            if obj_name in obs[task_name]:
+                camera_data = obs[task_name][obj_name]['camera']
+                if camera_data:
+                    rgba = camera_data.get('rgba')
+                    depth = camera_data.get('depth')
+                    # Do something with the camera data
+                    print(f"{obj_name} camera resolution: {rgba.shape if rgba is not None else 'No data'}")
 
 env.simulation_app.close()
