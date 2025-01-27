@@ -10,7 +10,6 @@ tasks:
   env_num: 1
   offset_size: 1.0
   
-  # Add CCTV objects
   objects:
   - name: "cctv_1"
     prim_path: "/World/cctv_1"
@@ -24,8 +23,6 @@ tasks:
       size: [640, 480]
       prim_path: "camera"
       viewport_visible: true
-      camera_type: "Perspective"
-      viewport_window: true
   
   - name: "cctv_2"
     prim_path: "/World/cctv_2"
@@ -39,10 +36,7 @@ tasks:
       size: [640, 480]
       prim_path: "camera"
       viewport_visible: true
-      camera_type: "Perspective"
-      viewport_window: true
 
-  # Original robot config remains the same
   robots:
   - name: h1
     prim_path: "/World/h1"
