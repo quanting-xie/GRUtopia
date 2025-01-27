@@ -2,6 +2,11 @@ simulator:
   physics_dt: 1/240
   rendering_dt: 1/240
 
+robot_models:
+  robots:
+    - type: "HumanoidRobot"
+      usd_path: "GRUtopia/assets/robots/h1/h1.usd"
+
 tasks:
 - type: "SingleInferenceTask"
   name: "multi_npc_house"
