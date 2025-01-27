@@ -130,8 +130,15 @@ def create_robots(config: TaskUserConfig, robot_models: RobotModels, scene: Scen
     Returns:
         Dict[str, BaseRobot]: robot instances dictionary.
     """
+    log.info(f"Creating robots with models: {robot_models}")
     robot_map = {}
+    
+    # Get list of robot models
+    available_models = robot_models.robots
+    log.info(f"Available robot models: {available_models}")
+    
     for robot in config.robots:
+        log.info(f"Processing robot config: {robot}")
         if robot.type not in BaseRobot.robots:
             raise KeyError(f'unknown robot type "{robot.type}"')
         robot_cls = BaseRobot.robots[robot.type]
