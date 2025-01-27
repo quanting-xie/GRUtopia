@@ -14,8 +14,9 @@ if not api_key:
     raise ValueError("Please set OPENAI_API_KEY environment variable")
 
 # Update API keys in config
-for npc in sim_config.npc:
-    npc.openai_api_key = api_key
+if hasattr(sim_config.config, 'npc'):
+    for npc in sim_config.config.npc:
+        npc.openai_api_key = api_key
 
 # Set up environment
 headless = False
