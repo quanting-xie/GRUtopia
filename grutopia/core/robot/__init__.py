@@ -16,7 +16,8 @@ ROBOT_MODELS_PATH = os.path.join(
 
 with open(ROBOT_MODELS_PATH, 'r') as f:
     models = yaml.load(f.read(), Loader=yaml.FullLoader)
-    # print(models)
+    if isinstance(models, list):
+        models = {'robots': models}
     robot_models = RobotModels(**models)
 
 
