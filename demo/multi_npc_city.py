@@ -1,6 +1,5 @@
 from grutopia.core.config import SimulatorConfig
 from grutopia.core.datahub.web_ui_api import clear as webui_clear
-from grutopia.core.env import BaseEnv
 from grutopia.core.util.container import is_in_container
 from grutopia.core.util import log
 
@@ -16,7 +15,10 @@ if is_in_container():
     headless = True
     webrtc = True
 
-# Create environment (this initializes Isaac Sim)
+# Initialize Isaac Sim first by importing BaseEnv
+from grutopia.core.env import BaseEnv
+
+# Create environment
 env = BaseEnv(sim_config, headless=headless, webrtc=webrtc)
 
 # Now we can safely import omni modules
