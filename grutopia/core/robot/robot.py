@@ -133,8 +133,14 @@ def create_robots(config: TaskUserConfig, robot_models: RobotModels, scene: Scen
     log.info(f"Creating robots with models: {robot_models}")
     robot_map = {}
     
-    # Get list of robot models
-    available_models = robot_models.robots
+    # Get list of robot models - FIX HERE
+    if isinstance(robot_models, dict) and 'robots' in robot_models:
+        available_models = robot_models['robots']
+    elif isinstance(robot_models, RobotModels):
+        available_models = robot_models.robots
+    else:
+        available_models = robot_models
+    
     log.info(f"Available robot models: {available_models}")
     
     for robot in config.robots:
@@ -142,15 +148,24 @@ def create_robots(config: TaskUserConfig, robot_models: RobotModels, scene: Scen
         if robot.type not in BaseRobot.robots:
             raise KeyError(f'unknown robot type "{robot.type}"')
         robot_cls = BaseRobot.robots[robot.type]
-        robot_models = robot_models.robots
+        
         r_model = None
-        for model in robot_models:
-            if model.type == robot.type:
+        for model in available_models:
+            if isinstance(model, dict):
+                model_type = model.get('type')
+            else:
+                model_type = model.type
+                
+            if model_type == robot.type:
                 r_model = model
+                break
+                
         if r_model is None:
             raise KeyError(f'robot model of "{robot.type}" is not found')
+            
         robot_ins = robot_cls(robot, r_model, scene)
         robot_map[robot.name] = robot_ins
         robot_ins.set_up_to_scene(scene)
         log.debug(f'===== {robot.name} loaded =====')
+    
     return robot_map
