@@ -1,10 +1,7 @@
 import os
 from grutopia.core.config import SimulatorConfig
 from grutopia.core.datahub.web_ui_api import clear as webui_clear
-from grutopia.core.env import BaseEnv
 from grutopia.core.util.container import is_in_container
-from grutopia.core.robot.robot_model import RobotModels
-import yaml
 
 # Load configuration
 file_path = './GRUtopia/custom_scenes/configs/multi_npc_house.yaml'
@@ -28,6 +25,11 @@ if is_in_container():
     headless = True
     webrtc = True
 
+# Initialize Isaac Sim first
+from grutopia.core.env import BaseEnv  # This initializes Isaac Sim
+import yaml
+from grutopia.core.robot.robot_model import RobotModels  # Import after Isaac Sim initialization
+
 # Load robot models
 robot_models_path = os.path.join(
     os.path.dirname(__file__), '../grutopia_extension/robots/robot_models.yaml')
@@ -35,7 +37,7 @@ with open(robot_models_path, 'r') as f:
     models = yaml.load(f.read(), Loader=yaml.FullLoader)
     robot_models = RobotModels(**models)
 
-# Create environment with robot models
+# Create environment
 env = BaseEnv(sim_config, headless=headless, webrtc=webrtc)
 
 task_name = env.config.tasks[0].name
