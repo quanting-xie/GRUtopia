@@ -46,8 +46,9 @@ while env.simulation_app.is_running():
         print(f"\nStep {i}")
         print(f"Available observations: {obs[task_name].keys()}")
         
-        # Now look for robots by their base names
-        for robot_name in ['cctv_1', 'cctv_2']:
+        # Now look for robots by their base names with _0 suffix
+        for robot_base_name in ['cctv_1', 'cctv_2']:
+            robot_name = f"{robot_base_name}_0"  # Add _0 suffix
             if robot_name in obs[task_name]:
                 print(f"\nReadings from {robot_name}:")
                 print(f"Available sensors: {obs[task_name][robot_name].keys()}")
