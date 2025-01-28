@@ -16,13 +16,18 @@ class CCTVCamera(BaseRobot):
     def __init__(self, config: RobotUserConfig, robot_model: RobotModel, scene: Scene):
         super().__init__(config, robot_model, scene)
         
+        # Convert color list to numpy array if it exists
+        color = np.array(config.color) if hasattr(config, 'color') and config.color is not None else np.array([0.2, 0.2, 0.2])
+        scale = np.array(config.scale) if hasattr(config, 'scale') and config.scale is not None else np.array([0.1, 0.1, 0.1])
+        position = np.array(config.position) if hasattr(config, 'position') and config.position is not None else np.array([0.0, 0.0, 0.0])
+        
         # Create the physical representation (a cube)
         self.isaac_robot = DynamicCuboid(
             prim_path=config.prim_path,
             name=config.name,
-            position=config.position,
-            scale=config.scale if hasattr(config, 'scale') else [0.1, 0.1, 0.1],
-            color=config.color if hasattr(config, 'color') else [0.2, 0.2, 0.2]
+            position=position,
+            scale=scale,
+            color=color
         )
 
     def apply_action(self, action: dict):
