@@ -138,9 +138,11 @@ def create_robots(config: TaskUserConfig, robot_models: RobotModels, scene: Scen
 
         print("robot_models: \n\n\n\n\n===============", robot_models)
 
-        robot_models = robot_models.robots
+        # Get the list of robot models
+        available_models = robot_models.robots if hasattr(robot_models, 'robots') else robot_models
+        
         r_model = None
-        for model in robot_models:
+        for model in available_models:
             if model.type == robot.type:
                 r_model = model
         if r_model is None:
