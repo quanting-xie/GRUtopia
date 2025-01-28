@@ -6,6 +6,12 @@ robots:
   - name: "camera"
     type: "Camera"
     prim_path: "camera"
+  - name: "env_sensor"
+    type: "EnvironmentalSensor"
+    position: [0, 0, 0]  # Relative to CCTV position
+    temp_range: [18.0, 28.0]
+    humidity_range: [30.0, 70.0]
+    noise_std: 0.2
 
 
 # Default Humanoid Robot

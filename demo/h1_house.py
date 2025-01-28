@@ -44,13 +44,13 @@ while env.simulation_app.is_running():
 
     if i % 100 == 0:
         print(f"Step {i}")
-        print(f"Available observations: {obs[task_name].keys()}")
-        
-        # Now look for robots by their base names
         for robot_name in ['cctv_1', 'cctv_2']:
             if robot_name in obs[task_name]:
-                print(f"Found robot {robot_name} in observations")
-                camera_data = obs[task_name][robot_name].get('camera', {})
-                print(f"{robot_name} camera data: {camera_data.keys() if camera_data else 'No camera data'}")
+                print(f"\nReadings from {robot_name}:")
+                env_data = obs[task_name][robot_name].get('env_sensor', {})
+                if env_data:
+                    print(f"Temperature: {env_data['temperature']:.1f}°C")
+                    print(f"Humidity: {env_data['humidity']:.1f}%")
+                    print(f"Sensor position: {env_data['position']}")
 
 env.simulation_app.close()

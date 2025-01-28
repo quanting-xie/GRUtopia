@@ -34,6 +34,10 @@ tasks:
     - name: "camera"
       enable: true
       size: [640, 480]
+    - name: "env_sensor"
+      enable: true
+      temp_range: [18.0, 28.0]
+      humidity_range: [30.0, 70.0]
 
   - name: "cctv_2"  # Second CCTV as a robot
     prim_path: "/World/cctv_2"
@@ -42,6 +46,6 @@ tasks:
     scale: [0.1, 0.1, 0.1]
     color: [0.2, 0.2, 0.2]
     sensor_params:
-    - name: "camera"
+    - name: "camera2"
       enable: true
       size: [640, 480]
