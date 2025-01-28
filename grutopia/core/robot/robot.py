@@ -1,5 +1,5 @@
 from functools import wraps
-from typing import Dict, Tuple
+from typing import Dict, Tuple, List
 
 import numpy as np
 from omni.isaac.core.prims import RigidPrim
@@ -120,11 +120,11 @@ class BaseRobot:
         return decorator
 
 
-def create_robots(config: TaskUserConfig, robot_models: RobotModels, scene: Scene) -> Dict[str, BaseRobot]:
+def create_robots(config: TaskUserConfig, robot_models: List[RobotModel], scene: Scene) -> Dict[str, BaseRobot]:
     """Create robot instances in config.
     Args:
         config (TaskUserConfig): user config.
-        robot_models (RobotModels): robot models.
+        robot_models (List[RobotModel]): list of robot models.
         scene (Scene): isaac scene.
 
     Returns:
