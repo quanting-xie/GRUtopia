@@ -135,7 +135,7 @@ def create_robots(config: TaskUserConfig, robot_models: RobotModels, scene: Scen
         if robot.type not in BaseRobot.robots:
             raise KeyError(f'unknown robot type "{robot.type}"')
         robot_cls = BaseRobot.robots[robot.type]
-        robot_models = robot_models.robots
+        # robot_models = robot_models.robots
         r_model = None
         for model in robot_models:
             if model.type == robot.type:
