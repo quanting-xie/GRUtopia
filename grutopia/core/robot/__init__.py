@@ -18,7 +18,9 @@ with open(ROBOT_MODELS_PATH, 'r') as f:
     models = yaml.load(f.read(), Loader=yaml.FullLoader)
     # print(models)
     robot_models = RobotModels(**models)
+    print("robot_models before init: \n\n\n\n\n===============", robot_models)
 
 
 def init_robots(the_config: TaskUserConfig, scene: Scene) -> typing.Dict:
+    
     return create_robots(the_config, robot_models, scene)
