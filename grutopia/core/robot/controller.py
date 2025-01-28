@@ -130,7 +130,7 @@ def create_controllers(config: RobotUserConfig, robot_model: RobotModel, robot: 
     """Create all controllers of one robot.
 
     Args:
-        config (RobotUserConfig): user config of the robot.
+        config (RobotUserConfig): user config.
         robot_model (RobotModel): model of the robot.
         robot (BaseRobot): robot instance.
         scene (Scene): scene from isaac sim.
@@ -139,10 +139,13 @@ def create_controllers(config: RobotUserConfig, robot_model: RobotModel, robot: 
         Dict[str, BaseController]: dict of controllers with controller name as key.
     """
     controller_map = {}
+    
+    # Return empty map if no controllers defined in model or config
+    if robot_model.controllers is None or config.controller_params is None:
+        return controller_map
+        
     available_controllers = {a.name: a for a in robot_model.controllers}
 
-    if config.controller_params is None:
-        return controller_map
     for controller_param in config.controller_params:
         controller_name = controller_param.name
         if controller_name in available_controllers:
@@ -161,7 +164,6 @@ def create_controllers(config: RobotUserConfig, robot_model: RobotModel, robot: 
 
         controller_map[controller_name] = controller_ins
         log.debug(f'==================== {controller_name} loaded==========================')
-
     return controller_map
 
 
