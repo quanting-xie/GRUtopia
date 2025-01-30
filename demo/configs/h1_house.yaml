@@ -43,7 +43,7 @@ tasks:
   - name: "cctv_2"  # Second CCTV as a robot
     prim_path: "/World/cctv_2"
     type: "CCTVCamera"
-    position: [7.0, -1.0, 2.5]
+    position: [7.0, 1.0, 2.5]
     orientation: [10, 0, 0]  # [roll, pitch, yaw] - pitch -45 degrees down, yaw 90 degrees right
     scale: [0.1, 0.1, 0.1]
     color: [0.2, 0.2, 0.2]
