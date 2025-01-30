@@ -26,17 +26,12 @@ class CCTVCamera(BaseRobot):
         scale = np.array(config.scale) if hasattr(config, 'scale') and config.scale is not None else np.array([0.1, 0.1, 0.1])
         position = np.array(config.position) if hasattr(config, 'position') and config.position is not None else np.array([0.0, 0.0, 0.0])
         
-        # More explicit rotation handling with debug info
-        if hasattr(config, 'rotation'):
-            log.info(f"CCTV {config.name} - Found rotation attribute")
-            if config.rotation is not None:
-                log.info(f"CCTV {config.name} - Rotation value: {config.rotation}")
-                euler_degrees = np.array(config.rotation)
-            else:
-                log.info(f"CCTV {config.name} - Rotation is None")
-                euler_degrees = np.array([0.0, 0.0, 0.0])
+        # Handle orientation in euler angles (roll, pitch, yaw in degrees)
+        if hasattr(config, 'orientation') and config.orientation is not None:
+            log.info(f"CCTV {config.name} - Using orientation value: {config.orientation}")
+            euler_degrees = np.array(config.orientation)
         else:
-            log.info(f"CCTV {config.name} - No rotation attribute found")
+            log.info(f"CCTV {config.name} - No orientation found, using default")
             euler_degrees = np.array([0.0, 0.0, 0.0])
         
         # Convert degrees to radians for euler_angles_to_quat
