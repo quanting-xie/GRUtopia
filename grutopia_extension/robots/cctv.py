@@ -3,6 +3,7 @@ import numpy as np
 from omni.isaac.core.objects import DynamicCuboid
 from omni.isaac.core.robots.robot import Robot
 from omni.isaac.core.prims import RigidPrim
+from omni.isaac.core.utils.rotations import euler_angles_to_quat
 
 from grutopia.core.robot.robot import BaseRobot
 from grutopia.core.robot.robot_model import RobotModel
@@ -16,16 +17,23 @@ class CCTVCamera(BaseRobot):
     def __init__(self, config: RobotUserConfig, robot_model: RobotModel, scene: Scene):
         super().__init__(config, robot_model, scene)
         
-        # Convert color list to numpy array if it exists
+        # Convert parameters to numpy arrays if they exist
         color = np.array(config.color) if hasattr(config, 'color') and config.color is not None else np.array([0.2, 0.2, 0.2])
         scale = np.array(config.scale) if hasattr(config, 'scale') and config.scale is not None else np.array([0.1, 0.1, 0.1])
         position = np.array(config.position) if hasattr(config, 'position') and config.position is not None else np.array([0.0, 0.0, 0.0])
+        
+        # Handle rotation in euler angles (roll, pitch, yaw in degrees)
+        euler_degrees = np.array(config.rotation) if hasattr(config, 'rotation') and config.rotation is not None else np.array([0.0, 0.0, 0.0])
+        # Convert degrees to radians for euler_angles_to_quat
+        euler_radians = np.radians(euler_degrees)
+        orientation = euler_angles_to_quat(euler_radians)
         
         # Create the physical representation (a cube)
         self.isaac_robot = DynamicCuboid(
             prim_path=config.prim_path,
             name=config.name,
             position=position,
+            orientation=orientation,  # Quaternion converted from euler angles
             scale=scale,
             color=color
         )
