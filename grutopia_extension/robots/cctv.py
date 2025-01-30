@@ -1,6 +1,6 @@
 from typing import Dict, Tuple
 import numpy as np
-from omni.isaac.core.objects import DynamicCuboid
+from omni.isaac.core.objects import VisualCuboid
 from omni.isaac.core.robots.robot import Robot
 from omni.isaac.core.prims import RigidPrim
 from omni.isaac.core.utils.rotations import euler_angles_to_quat
@@ -28,12 +28,12 @@ class CCTVCamera(BaseRobot):
         euler_radians = np.radians(euler_degrees)
         orientation = euler_angles_to_quat(euler_radians)
         
-        # Create the physical representation (a cube)
-        self.isaac_robot = DynamicCuboid(
+        # Create the physical representation (now using VisualCuboid instead)
+        self.isaac_robot = VisualCuboid(
             prim_path=config.prim_path,
             name=config.name,
             position=position,
-            orientation=orientation,  # Quaternion converted from euler angles
+            orientation=orientation,
             scale=scale,
             color=color
         )
