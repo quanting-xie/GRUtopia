@@ -28,7 +28,7 @@ tasks:
     prim_path: "/World/cctv_1"
     type: "CCTVCamera"
     position: [4.94, 0.02, 2.5]
-    orientation: [0, 10, 0]  # [roll, pitch, yaw] - pitch -45 degrees to look down
+    orientation: [0, 15, 0]  # [roll, pitch, yaw] - pitch -45 degrees to look down
     scale: [0.1, 0.1, 0.1]
     color: [0.2, 0.2, 0.2]
     sensor_params:
