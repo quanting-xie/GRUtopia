@@ -28,7 +28,8 @@ tasks:
     prim_path: "/World/cctv_1"
     type: "CCTVCamera"
     position: [5.58, -0.77, 2.05]
-    rotation: [85, 0, -81.3]  # [roll, pitch, yaw] in degrees - 90 degrees around X axis to look down
+    rotation: [85, 0, -81.3]  # [roll, pitch, yaw] in degrees
+    orientation: [0.996, 0, 0, 0.087]  # [w, x, y, z] quaternion format
     scale: [0.1, 0.1, 0.1]
     color: [0.2, 0.2, 0.2]
     sensor_params:
@@ -44,7 +45,8 @@ tasks:
     prim_path: "/World/cctv_2"
     type: "CCTVCamera"
     position: [7.0, -1.0, 2.8]
-    rotation: [90, 0, 0]  # [roll, pitch, yaw] in degrees - 90 degrees around X axis to look down
+    rotation: [90, 0, 0]  # [roll, pitch, yaw] in degrees
+    orientation: [0.707, 0.707, 0, 0]  # [w, x, y, z] quaternion format
     scale: [0.1, 0.1, 0.1]
     color: [0.2, 0.2, 0.2]
     sensor_params:
