@@ -4,6 +4,7 @@ from omni.isaac.core.objects import VisualCuboid
 from omni.isaac.core.robots.robot import Robot
 from omni.isaac.core.prims import RigidPrim
 from omni.isaac.core.utils.rotations import euler_angles_to_quat
+from grutopia.core.util import log  # Add logging for debugging
 
 from grutopia.core.robot.robot import BaseRobot
 from grutopia.core.robot.robot_model import RobotModel
@@ -22,13 +23,19 @@ class CCTVCamera(BaseRobot):
         scale = np.array(config.scale) if hasattr(config, 'scale') and config.scale is not None else np.array([0.1, 0.1, 0.1])
         position = np.array(config.position) if hasattr(config, 'position') and config.position is not None else np.array([0.0, 0.0, 0.0])
         
+        # Debug print the incoming rotation values
+        log.info(f"CCTV {config.name} - Initial rotation config: {config.rotation if hasattr(config, 'rotation') else 'None'}")
+        
         # Handle rotation in euler angles (roll, pitch, yaw in degrees)
         euler_degrees = np.array(config.rotation) if hasattr(config, 'rotation') and config.rotation is not None else np.array([0.0, 0.0, 0.0])
         # Convert degrees to radians for euler_angles_to_quat
         euler_radians = np.radians(euler_degrees)
         orientation = euler_angles_to_quat(euler_radians)
         
-        # Create the physical representation (now using VisualCuboid instead)
+        # Debug print the computed orientation
+        log.info(f"CCTV {config.name} - Computed quaternion: {orientation}")
+        
+        # Create the physical representation
         self.isaac_robot = VisualCuboid(
             prim_path=config.prim_path,
             name=config.name,
@@ -37,6 +44,10 @@ class CCTVCamera(BaseRobot):
             scale=scale,
             color=color
         )
+        
+        # Verify the orientation was set correctly
+        pos, rot = self.get_world_pose()
+        log.info(f"CCTV {config.name} - Actual orientation after creation: {rot}")
 
     def apply_action(self, action: dict):
         """CCTVs don't need actions as they're static."""
