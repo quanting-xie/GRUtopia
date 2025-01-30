@@ -18,21 +18,32 @@ class CCTVCamera(BaseRobot):
     def __init__(self, config: RobotUserConfig, robot_model: RobotModel, scene: Scene):
         super().__init__(config, robot_model, scene)
         
+        # Debug print the entire config
+        log.info(f"CCTV {config.name} - Full config: {vars(config)}")
+        
         # Convert parameters to numpy arrays if they exist
         color = np.array(config.color) if hasattr(config, 'color') and config.color is not None else np.array([0.2, 0.2, 0.2])
         scale = np.array(config.scale) if hasattr(config, 'scale') and config.scale is not None else np.array([0.1, 0.1, 0.1])
         position = np.array(config.position) if hasattr(config, 'position') and config.position is not None else np.array([0.0, 0.0, 0.0])
         
-        # Debug print the incoming rotation values
-        log.info(f"CCTV {config.name} - Initial rotation config: {config.rotation if hasattr(config, 'rotation') else 'None'}")
+        # More explicit rotation handling with debug info
+        if hasattr(config, 'rotation'):
+            log.info(f"CCTV {config.name} - Found rotation attribute")
+            if config.rotation is not None:
+                log.info(f"CCTV {config.name} - Rotation value: {config.rotation}")
+                euler_degrees = np.array(config.rotation)
+            else:
+                log.info(f"CCTV {config.name} - Rotation is None")
+                euler_degrees = np.array([0.0, 0.0, 0.0])
+        else:
+            log.info(f"CCTV {config.name} - No rotation attribute found")
+            euler_degrees = np.array([0.0, 0.0, 0.0])
         
-        # Handle rotation in euler angles (roll, pitch, yaw in degrees)
-        euler_degrees = np.array(config.rotation) if hasattr(config, 'rotation') and config.rotation is not None else np.array([0.0, 0.0, 0.0])
         # Convert degrees to radians for euler_angles_to_quat
         euler_radians = np.radians(euler_degrees)
-        orientation = euler_angles_to_quat(euler_radians)
+        log.info(f"CCTV {config.name} - Euler angles in radians: {euler_radians}")
         
-        # Debug print the computed orientation
+        orientation = euler_angles_to_quat(euler_radians)
         log.info(f"CCTV {config.name} - Computed quaternion: {orientation}")
         
         # Create the physical representation
@@ -47,7 +58,8 @@ class CCTVCamera(BaseRobot):
         
         # Verify the orientation was set correctly
         pos, rot = self.get_world_pose()
-        log.info(f"CCTV {config.name} - Actual orientation after creation: {rot}")
+        log.info(f"CCTV {config.name} - Final position: {pos}")
+        log.info(f"CCTV {config.name} - Final orientation: {rot}")
 
     def apply_action(self, action: dict):
         """CCTVs don't need actions as they're static."""
