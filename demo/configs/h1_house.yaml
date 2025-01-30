@@ -28,7 +28,7 @@ tasks:
     prim_path: "/World/cctv_1"
     type: "CCTVCamera"
     position: [4.94, 0.02, 2.5]  # Adjusted to match actual position
-    rotation: [0, 0, 0]  # Starting with neutral rotation
+    rotation: [45, 0, 0]  # Starting with neutral rotation
     scale: [0.1, 0.1, 0.1]
     color: [0.2, 0.2, 0.2]
     sensor_params:
@@ -44,7 +44,7 @@ tasks:
     prim_path: "/World/cctv_2"
     type: "CCTVCamera"
     position: [7.0, -1.0, 2.5]  # Adjusted to match actual position
-    rotation: [0, 0, 0]  # Starting with neutral rotation
+    rotation: [45, 0, 0]  # Starting with neutral rotation
     scale: [0.1, 0.1, 0.1]
     color: [0.2, 0.2, 0.2]
     sensor_params:
