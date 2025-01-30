@@ -59,8 +59,7 @@ while env.simulation_app.is_running():
                     print(f"Temperature: {env_data['temperature']:.1f}°C")
                     print(f"Humidity: {env_data['humidity']:.1f}%")
                     print(f"Sensor position: {env_data['position']}")
-                    pos = obs[task_name][robot_name].get('position', None)
-                    rot = obs[task_name][robot_name].get('orientation', None)
+                    print(f"Sensor orientation: {env_data['orientation']}")
                 else:
                     print("No environmental sensor data available")
 
