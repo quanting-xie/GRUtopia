@@ -2,6 +2,8 @@ from grutopia.core.config import SimulatorConfig
 from grutopia.core.env import BaseEnv
 from grutopia.core.util.container import is_in_container
 from grutopia.core.util import log  # Add logging
+from omni.isaac.core.utils.rotations import quat_to_euler_angles
+import numpy as np
 
 file_path = './GRUtopia/demo/configs/h1_house.yaml'
 sim_config = SimulatorConfig(file_path)
@@ -54,6 +56,14 @@ while env.simulation_app.is_running():
                 print(f"Position: {obs[task_name][robot_name]['position']}")
                 print(f"Orientation: {obs[task_name][robot_name]['orientation']}")  # Print orientation
                 print(f"Available sensors: {obs[task_name][robot_name].keys()}")
+                
+                orientation = obs[task_name][robot_name]['orientation']
+                euler_angles = np.degrees(quat_to_euler_angles(orientation))
+                print(f"\n{robot_name} Euler angles (degrees):")
+                print(f"Roll (X): {euler_angles[0]:.1f}")
+                print(f"Pitch (Y): {euler_angles[1]:.1f}")
+                print(f"Yaw (Z): {euler_angles[2]:.1f}")
+
                 
                 env_data = obs[task_name][robot_name].get('env_sensor', {})
                 if env_data:
